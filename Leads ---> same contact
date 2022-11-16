@@ -1,0 +1,19 @@
+var = zoho.crm.searchRecords("Leads","(Mobile:equals:" + Mobile_v + ")");
+info var.size();
+for each  rec in var
+{
+	ID_V = rec.get("id").toLong();
+	if(RecID != ID_V)
+	{
+		info ID_V;
+		First_name_v = rec.get("First_Name");
+		Last_name_v = rec.get("Last_Name");
+		Email_v = rec.get("Email");
+		map_v = Map();
+		map_v.put("First_Name",First_name_v);
+		map_v.put("Last_Name",Last_name_v);
+		map_v.put("Email",Email_v);
+		update_v = zoho.crm.updateRecord("Leads",RecID,map_v);
+		// 		info update_v;
+	}
+}
