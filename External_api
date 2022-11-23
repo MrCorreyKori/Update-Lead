@@ -1,0 +1,30 @@
+url = "https://accounts.zoho.in/oauth/v2/token";
+mymap = Map();
+header = Map();
+mymap.put("refresh_token","1000.ce7e1891b01a6aab64d948108423ecd3.fef01d47f97a78694f0e85f781f8d1f0");
+mymap.put("client_id","1000.I06CMDD4THVWVURO991KX7MFJJMNCZ");
+mymap.put("client_secret","7674313c660e82c0478580f46fa5bf2946c97d21e4");
+mymap.put("grant_type","refresh_token");
+resp = postUrl(url,mymap,header);
+// 	info resp ;
+access_token = resp.get("access_token");
+// 	info access_token ;
+//----------To insert record------------//
+mymap2 = Map();
+mymap2.put("Account_Name",input.Name);
+mymap2.put("Phone",ifnull(input.Mobile_1,""));
+list_v = List();
+list_v.add(mymap2);
+new_map = Map();
+new_map.put("data",list_v);
+response_v = invokeurl
+[
+	url :"https://www.zohoapis.in/crm/v3/Accounts"
+	type :POST
+	parameters:new_map.toString()
+	headers:{"Authorization":"Zoho-oauthtoken " + access_token}
+];
+data_v = response_v.get("data");
+details_v = data_v.getJSON("details");
+id_v = details_v.get("id").toLong();
+input.ZCRM_ID = id_v;
