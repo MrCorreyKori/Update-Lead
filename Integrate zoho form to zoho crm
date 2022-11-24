@@ -1,0 +1,41 @@
+void test(map mymap)
+{
+empt_map = Map();
+for each  rec in mymap.toJsonList()
+{
+	First_name_v = rec.getJson("First_Name");
+	Last_name_v = rec.getJSON("Last_Name");
+	Organization_email_v = rec.getJSON("Organization_Email");
+	company_v = rec.getJSON("Company");
+	Email_v = rec.getJSON("Email");
+	Add_line_1_v = rec.getJSON("Organization_Address_Line_1");
+	Add_line_2_v = rec.getJSON("Organization_Address_Line_2");
+	city_v = rec.getJSON("Organization_Address_City");
+	state_v = rec.getJSON("Organization_Address_State");
+	zip_v = rec.getJSON("Organization_Address_Zip");
+	phone_v = rec.getJSON("Phone");
+	search_record = zoho.crm.searchRecords("Contacts","(Email:equals:" + Email_v + ")");
+	size_v = search_record.size();
+	if(size_v == 0)
+	{
+		resp = zoho.crm.createRecord("Contacts",mymap,empt_map,"master_connection");
+	}
+}
+}
+
+//==============INPUT=================//
+{
+"First_Name":"Prashant",
+"Last_Name":"kori",
+"Organization_Email":"prashantkori174@gmail.com",
+"Company":"iks",
+"Email":"prashantkori174@gmail.com",
+"Organization_Address_Line_1":"ADD1",
+"Organization_Address_Line_2":"ADD2",
+"Organization_Address_City":"DOM",
+"Organization_Address_State":"MAh",
+"Organization_Address_Zip":"421202",
+"Phone":"9892694284"
+}
+OP:-----
+//=========Contact created in zoho crm contact module==================//
